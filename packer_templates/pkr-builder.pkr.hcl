@@ -49,6 +49,7 @@ locals {
       "${path.root}/scripts/windows/virtualbox-prevent-vboxsrv-resolution-delay.ps1",
       "${path.root}/scripts/windows/provision-winrm.ps1",
       "${path.root}/scripts/windows/enable-remote-desktop.ps1",
+      "${path.root}/scripts/windows/install_software.ps1",
       "${path.root}/scripts/windows/eject-media.ps1"
       ] : [
       # "${path.root}/scripts/windows/base_setup.ps1",
