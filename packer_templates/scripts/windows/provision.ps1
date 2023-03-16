@@ -83,9 +83,9 @@ if ($systemVendor -eq 'QEMU') {
 } elseif ($systemVendor -eq 'Microsoft Corporation') {
     # do nothing. Hyper-V enlightments are already bundled with Windows.
 } elseif ($systemVendor -eq 'VMware, Inc.') {
-    Write-Output 'Installing VMware Tools...'
+    Write-Output 'Not Installing VMware Tools...'
     # silent install without rebooting.
-    E:\setup64.exe /s /v '/qn reboot=r'| Out-String -Stream
+    #E:\setup64.exe /s /v '/qn reboot=r'| Out-String -Stream
 } elseif ($systemVendor -eq 'Parallels Software International Inc.') {
     Write-Host 'Installing the Parallels Tools for Guest VM...'
     E:\PTAgent.exe /install_silent | Out-String -Stream
