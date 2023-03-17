@@ -7,7 +7,6 @@ iso_checksum            = "sha256:ebbc79106715f44f5020f77bd90721b17c5a877cbc15a3
 parallels_guest_os_type = "win-11"
 vbox_guest_os_type      = "Windows11_64"
 vmware_guest_os_type    = "windows9srv-64"
-boot_command            = ["<wait><leftShiftOn><f10><leftShiftOff><wait>reg add HKLM\\SYSTEM\\Setup\\LabConfig /t REG_DWORD /v BypassTPMCheck /d 1<return>reg add HKLM\\SYSTEM\\Setup\\LabConfig /t REG_DWORD /v BypassSecureBootCheck /d 1<return><wait>exit<return><wait><return>"]
 cpus = 4
 memory = 8192
 vmware_vmx_data = {
