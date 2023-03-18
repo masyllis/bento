@@ -166,14 +166,18 @@ Stop-ServiceForReal BITS               # Background Intelligent Transfer Service
 #
 # cleanup the WinSxS folder.
 
-# NB even thou the automatic maintenance includes a component cleanup task,
+# NB even though the automatic maintenance includes a component cleanup task,
 #    it will not clean everything, as such, dism will clean the rest.
 # NB to analyse the used space use: dism.exe /Online /Cleanup-Image /AnalyzeComponentStore
 # see https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder
 Write-Host 'Cleaning up the WinSxS folder...'
 dism.exe /Online /Quiet /Cleanup-Image /StartComponentCleanup /ResetBase
 if ($LASTEXITCODE) {
-    throw "Failed with Exit Code $LASTEXITCODE"
+    dism.exe /Online /Quiet /Cleanup-Image /RevertPendingActions
+    dism.exe /Online /Quiet /Cleanup-Image /StartComponentCleanup /ResetBase
+    if ($LASTEXITCODE) {
+        throw "Failed with Exit Code $LASTEXITCODE"
+    }
 }
 
 # NB even after cleaning up the WinSxS folder the "Backups and Disabled Features"
