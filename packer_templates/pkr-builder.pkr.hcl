@@ -49,7 +49,6 @@ locals {
       "${path.root}/scripts/windows/virtualbox-prevent-vboxsrv-resolution-delay.ps1",
       "${path.root}/scripts/windows/provision-winrm.ps1",
       "${path.root}/scripts/windows/enable-remote-desktop.ps1",
-      "${path.root}/scripts/windows/install_software.ps1",
       "${path.root}/scripts/windows/eject-media.ps1"
       ] : [
       # "${path.root}/scripts/windows/base_setup.ps1",
@@ -205,6 +204,15 @@ build {
   provisioner "windows-update" {
     search_criteria = "IsInstalled=0"
     except          = var.is_windows ? null : local.source_names
+  }
+  provisioner "powershell" {
+    elevated_password = "vagrant"
+    elevated_user     = "vagrant"
+    scripts           = var.develup ? ["${path.root}/scripts/windows/develup.ps1"] : null
+    except            = var.is_windows ? null : local.source_names
+  }
+  provisioner "windows-restart" {
+    except = var.is_windows ? null : local.source_names
   }
   provisioner "chef-solo" {
     chef_license = "accept-no-persist"

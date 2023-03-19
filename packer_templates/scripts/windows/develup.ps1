@@ -10,9 +10,6 @@ for ($try = 0; $try -lt 5; $try++) {
   Start-Sleep 2
 }
 
-# Install WSL
-wsl --install --no-launch
-
 # Install with chocolatey
 choco install -y `
   7zip.install `
@@ -30,13 +27,16 @@ choco install -y `
   vim `
   vscode.install
 
-choco install -y `
-  visualstudio2022professional
-choco install -y `
-  visualstudio2022buildtools `
-  visualstudio2022-remotetools `
-  visualstudio2022-workload-nativecrossplat `
-  visualstudio2022-workload-nativedesktop
+choco install -y visualstudio2022professional
 choco install -y visualstudio2022-workload-nativedesktop `
   --package-parameters `
   "--productId Microsoft.VisualStudio.Product.Professional --channelId VisualStudio.17.Release --includeRecommended --includeOptional"
+choco install -y visualstudio2022-remotetools visualstudio2022-workload-nativecrossplat
+
+# Install WSL
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+wsl --set-default-version 2
+wsl --install -d Ubuntu-18.04 --no-launch
+wsl --install -d Ubuntu-20.04 --no-launch
+wsl --install -d Ubuntu-22.04 --no-launch

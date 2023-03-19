@@ -1,4 +1,9 @@
 # General variables
+variable "develup" {
+  type        = bool
+  default     = false
+  description = "Install developer tools"
+}
 variable "os_name" {
   type        = string
   description = "OS Brand Name"
