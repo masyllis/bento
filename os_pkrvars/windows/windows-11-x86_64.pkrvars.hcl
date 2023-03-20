@@ -13,4 +13,5 @@ vmware_vmx_data = {
     "cpuid.coresPerSocket"    = "4"
     "ethernet0.pciSlotNumber" = "32"
     "virtualhw.version" = "19"
+    "vhv.enable" = "TRUE"
 }

@@ -208,7 +208,18 @@ build {
   provisioner "powershell" {
     elevated_password = "vagrant"
     elevated_user     = "vagrant"
-    scripts           = var.develup ? ["${path.root}/scripts/windows/develup.ps1"] : null
+    environment_vars  = ["DEVELUP_ENABLED=${var.develup}"]
+    script            = "${path.root}/scripts/windows/develup/virtualization.ps1"
+    except            = var.is_windows ? null : local.source_names
+  }
+  provisioner "windows-restart" {
+    except = var.is_windows ? null : local.source_names
+  }
+  provisioner "powershell" {
+    elevated_password = "vagrant"
+    elevated_user     = "vagrant"
+    environment_vars  = ["DEVELUP_ENABLED=${var.develup}"]
+    scripts            = ["${path.root}/scripts/windows/develup/wsl.ps1", "${path.root}/scripts/windows/develup/chocolatey.ps1"]
     except            = var.is_windows ? null : local.source_names
   }
   provisioner "windows-restart" {
